@@ -1,12 +1,10 @@
 certifi==2020.12.5
 click==7.1.2
 Flask==1.1.2
-Flask-SQLAlchemy @ file:///home/conda/feedstock_root/build_artifacts/flask-sqlalchemy_1594747318500/work
 gunicorn==20.0.4
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe @ file:///C:/ci/markupsafe_1594405949945/work
 psycopg2==2.8.6
-SQLAlchemy @ file:///D:/bld/sqlalchemy_1612225196382/work
 Werkzeug==1.0.1
 wincertstore==0.2
