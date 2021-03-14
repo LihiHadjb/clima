@@ -5,6 +5,12 @@ from psycopg2.extras import RealDictCursor
 from flask import request
 from db import init_db
 
+QUERY1 = """
+SELECT temp_celsius, precipitation_hr 
+FROM forecasts 
+WHERE latitude = %s AND longitude = %s
+"""
+
 init_db()
 
 
@@ -31,9 +37,9 @@ def hello_world():
 
 @app.route('/weather/summarize')
 def summarize():
-    lat = request.args.get('lat')
-    lon = request.args.get('lon')
-    cursor.execute("SELECT temp_celsius, precipitation_hr FROM forecasts WHERE latitude = %s AND longitude = %s", (lat, lon,))
+    lat = int(request.args.get('lat'))
+    lon = int(request.args.get('lon'))
+    cursor.execute(QUERY1, (lat, lon,))
     result = cursor.fetchall()
     return result[0]
 
