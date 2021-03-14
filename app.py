@@ -35,7 +35,7 @@ def get_summary_for_location(lat, lon):
 
     params = (lat, lon,)
     cursor.execute(query, params)
-    result = cursor.fetchall
+    result = cursor.fetchall()
     print(result)
     return result
 
