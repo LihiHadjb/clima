@@ -13,7 +13,8 @@ app = Flask(__name__)
 def data():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
-    return get_data_for_location(lat, lon)[0]
+    print(get_data_for_location(lat, lon))
+    return get_data_for_location(lat, lon)
 
 
 @app.route('/weather/summarize')
