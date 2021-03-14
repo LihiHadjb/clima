@@ -20,11 +20,11 @@ def create_table():
     cursor = connection.cursor()
     cursor.execute("""CREATE TABLE forecasts(
         id SERIAL PRIMARY KEY,
-        'Longitude' real,
-        'Latitude' real,
-        'forecast_time' timestamp,
-        'Temperature Celsius' real,
-        'Precipitation Rate mm/hr' real)
+        longitude real,
+        latitude real,
+        forecast_time timestamp,
+        temperature_celsius real,
+        precipitation_rate_mm_hr real)
     """)
 
 
@@ -40,7 +40,7 @@ def load_data():
         with open(file_name, 'r') as f:
             next(f)
             cursor.copy_from(f, 'forecasts',
-                             columns=('Longitude', 'Latitude', 'forecast_time', 'Temperature Celsius', 'Precipitation Rate mm/hr'),
+                             columns=('longitude', 'latitude', 'forecast_time', 'temperature_celsius', 'precipitation_rate_mm_hr'),
                              sep=',')
     connection.commit()
 
@@ -56,7 +56,7 @@ def get_data_for_location(lat, lon):
     cursor = connection.cursor()
 
     query = """
-    SELECT 'forecast_time', 'Temperature Celsius', 'Precipitation Rate mm/hr'
+    SELECT 'forecast_time', 'temperature_celsius', 'precipitation_rate_mm_hr'
     FROM forecasts 
     WHERE Latitude = %s AND Longitude = %s
     """
