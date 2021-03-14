@@ -3,8 +3,10 @@ from psycopg2 import Error
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask import request
+from db import init_db
 
-import json
+init_db()
+
 
 
 app = Flask(__name__)
