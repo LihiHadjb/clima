@@ -15,7 +15,7 @@ def get_summary_for_location(lat, lon):
     query = """
     SELECT MAX(temp_celsius), MAX(precipitation_hr), MIN(temp_celsius), MIN(precipitation_hr), AVG(temp_celsius), AVG(precipitation_hr)
     FROM forecasts 
-    WHERE latitude = %s AND longitude = %s
+    WHERE Latitude = %s AND Longitude = %s
     """
 
     params = (lat, lon,)
@@ -27,9 +27,9 @@ def get_summary_for_location(lat, lon):
 
 def get_data_for_location(lat, lon):
     query = """
-    SELECT FOR_TIME, TEMP, PERCP
+    SELECT forecast_time, Temperature Celsius, Precipitation Rate mm/hr
     FROM forecasts 
-    WHERE latitude = %s AND longitude = %s
+    WHERE Latitude = %s AND Longitude = %s
     """
 
     params = (lat, lon,)
