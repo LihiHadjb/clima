@@ -14,7 +14,8 @@ def init_db():
 
     cursor = connection.cursor()
     directory = "data"
-    for file_name in os.listdir(directory):
+    for file in os.listdir(directory):
+        file_name = os.fsdecode(file)
         with open(file_name, 'r') as f:
             next(f)
             cursor.copy_from(f, 'forecasts',
