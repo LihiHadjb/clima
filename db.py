@@ -50,7 +50,7 @@ def load_data():
 def get_summary_for_location(lat, lon):
     data_for_location = get_data_for_location(lat, lon)
     print(data_for_location)
-    return "hello"
+    return "hello2"
 
 
 def get_data_for_location(lat, lon):
