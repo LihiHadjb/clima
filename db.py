@@ -15,15 +15,15 @@ def init_db():
 
     cursor = connection.cursor()
 
-    # cursor.execute("""CREATE TABLE forecasts(
-    #     id SERIAL PRIMARY KEY,
-    #     longitude real,
-    #     latitude real,
-    #     time timestamp,
-    #     temp_celsius real,
-    #     precipitation_hr real
-    # )
-    # """)
+    cursor.execute("""CREATE TABLE forecasts(
+        id SERIAL PRIMARY KEY,
+        longitude real,
+        latitude real,
+        time timestamp,
+        temp_celsius real,
+        precipitation_hr real
+    )
+    """)
 
     # directory = "data"
     # for file in os.listdir(directory):
