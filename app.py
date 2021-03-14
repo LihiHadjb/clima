@@ -4,6 +4,8 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask import request
 from db import login_to_db, get_data_for_location, get_summary_for_location
+from flask import jsonify
+
 
 
 app = Flask(__name__)
@@ -14,7 +16,7 @@ def data():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
     print(get_data_for_location(lat, lon))
-    return get_data_for_location(lat, lon)
+    return jsonify(get_data_for_location(lat, lon))
 
 
 @app.route('/weather/summarize')
