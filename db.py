@@ -8,10 +8,10 @@ PERCP = "Precipitation Rate mm/hr"
 
 
 def login_to_db():
-    connection = psycopg2.connect(host="ec2-52-71-161-140.compute-1.amazonaws.com",
-                                  dbname="d8a5obfa9du048",
-                                  user="nobeehmaarddfb",
-                                  password="15956bfd9f88359095c6850be56b5e8ed030d15bdb8449a50834f90fe718a70a")
+    connection = psycopg2.connect(host="ec2-54-164-241-193.compute-1.amazonaws.com",
+                                  dbname="d95c61aiaqslf",
+                                  user="sopngofbxlguxk",
+                                  password="32f82f798dab715513be30c5b671932cd0a09e808202dfca61f680500fb98dc9")
     return connection
 
 
