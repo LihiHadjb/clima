@@ -19,6 +19,7 @@ except (Exception, Error) as error:
 
 cursor = connection.cursor(cursor_factory=RealDictCursor)
 
+init_db()
 
 @app.route('/')
 def hello_world():

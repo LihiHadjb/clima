@@ -28,7 +28,8 @@ def init_db():
     # directory = "data"
     # for file in os.listdir(directory):
     #     file_name = os.fsdecode(file)
-    for file_name in ["file1.csv", "file2.csv", "file3.csv"]:
+    #for file_name in ["file1.csv", "file2.csv", "file3.csv"]:
+    for file_name in ["file1.csv"]:
         with open(file_name, 'r') as f:
             next(f)
             cursor.copy_from(f, 'forecasts',
