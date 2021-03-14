@@ -13,6 +13,17 @@ def init_db():
         print("Connecting to PostgreSQL failed!", error)
 
     cursor = connection.cursor()
+
+    cursor.execute("""CREATE TABLE forecasts(
+        id integer PRIMARY KEY,
+        longitude real,
+        latitude real,
+        time time,
+        temp_celsius real,
+        precipitation_hr real     
+    )
+    """)
+
     # directory = "data"
     # for file in os.listdir(directory):
     #     file_name = os.fsdecode(file)
