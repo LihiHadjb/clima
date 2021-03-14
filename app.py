@@ -2,6 +2,8 @@ from flask import Flask
 from psycopg2 import Error
 import psycopg2
 from psycopg2.extras import RealDictCursor
+from flask import request
+
 import json
 
 
@@ -22,6 +24,14 @@ cursor = connection.cursor(cursor_factory=RealDictCursor)
 @app.route('/')
 def hello_world():
     cursor.execute("SELECT * FROM forecasts WHERE latitude = -90 AND longitude = -179")
+    result = cursor.fetchall()
+    return result[0]
+
+@app.route('/weather/summarize')
+def hello_world():
+    lat = request.args.get('lat')
+    lon = request.args.get('lon')
+    cursor.execute("SELECT temp_celsius, precipitation_hr FROM forecasts WHERE latitude = %d AND longitude = %d", (lat, lon))
     result = cursor.fetchall()
     return result[0]
 
