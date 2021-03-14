@@ -18,7 +18,7 @@ def init_db():
         id integer PRIMARY KEY,
         longitude real,
         latitude real,
-        time time,
+        time timestamp,
         temp_celsius real,
         precipitation_hr real     
     )
