@@ -15,7 +15,6 @@ app = Flask(__name__)
 def data():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
-    print(get_data_for_location(lat, lon))
     return jsonify(get_data_for_location(lat, lon))
 
 
