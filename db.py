@@ -26,6 +26,8 @@ def create_table():
         temperature_celsius real,
         precipitation_rate_mm_hr real)
     """)
+    cursor.close()
+    connection.commit()
 
 
 def load_data():
