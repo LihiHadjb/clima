@@ -69,7 +69,7 @@ def get_data_for_location(lat, lon):
     cursor = connection.cursor()
 
     query = """
-    SELECT forecast_time, Temperature Celsius, Precipitation Rate mm/hr
+    SELECT 'forecast_time', 'Temperature Celsius', 'Precipitation Rate mm/hr'
     FROM forecasts 
     WHERE Latitude = %s AND Longitude = %s
     """
