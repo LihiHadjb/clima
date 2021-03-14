@@ -21,7 +21,8 @@ cursor = connection.cursor(cursor_factory=RealDictCursor)
 
 @app.route('/')
 def hello_world():
-    cursor.execute("SELECT * FROM forecasts WHERE latitude = -90 AND longtitude = -179")
+    #TODO: typo in logtidute
+    cursor.execute("SELECT * FROM forecasts WHERE latitude = -90 AND longitude = -179")
     result = cursor.fetchall()
     return result
 
