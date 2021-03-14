@@ -15,7 +15,7 @@ def init_db():
     cursor = connection.cursor()
 
     cursor.execute("""CREATE TABLE forecasts(
-        id SERIAL,
+        id SERIAL PRIMARY KEY,
         longitude real,
         latitude real,
         time timestamp,
