@@ -28,7 +28,7 @@ def hello_world():
     return result[0]
 
 @app.route('/weather/summarize')
-def hello_world():
+def summarize():
     lat = request.args.get('lat')
     lon = request.args.get('lon')
     cursor.execute("SELECT temp_celsius, precipitation_hr FROM forecasts WHERE latitude = %d AND longitude = %d", (lat, lon))
