@@ -1,7 +1,4 @@
-import os
 import psycopg2
-
-from psycopg2 import Error
 
 LON = "Longitude"
 LAT = "Latitude"
@@ -23,11 +20,11 @@ def create_table():
     cursor = connection.cursor()
     cursor.execute("""CREATE TABLE  IF NOT EXIST forecasts(
         id SERIAL PRIMARY KEY,
-        LON real,
-        LAT real,
-        FOR_TIME timestamp,
-        TEMP real,
-        PERCP real)
+        'Longitude' real,
+        'Latitude' real,
+        'forecast_time' timestamp,
+        'Temperature Celsius' real,
+        'Precipitation Rate mm/hr' real)
     """)
 
 
@@ -43,7 +40,7 @@ def load_data():
         with open(file_name, 'r') as f:
             next(f)
             cursor.copy_from(f, 'forecasts',
-                             columns=(LON, LAT, FOR_TIME, TEMP, PERCP),
+                             columns=('Longitude', 'Latitude', 'forecast_time', 'Temperature Celsius', 'Precipitation Rate mm/hr'),
                              sep=',')
     connection.commit()
 
