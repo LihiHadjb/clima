@@ -16,12 +16,13 @@ try:
 except (Exception, Error) as error:
     print("Connecting to PostgreSQL failed!", error)
 
-cursor = connection.cursor()
+cursor = connection.cursor(cursor_factory=RealDictCursor)
 
 
 @app.route('/')
 def hello_world():
-    result = cursor.execute("select * from forecasts")
+    cursor.execute("SELECT * FROM forecasts WHERE latitude = -90 AND longtitude = -179")
+    result = cursor.fetchall()
     return result
 
 
