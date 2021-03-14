@@ -3,29 +3,13 @@ from psycopg2 import Error
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask import request
-from db import init_db
+from db import login_to_db, LON, LAT, FOR_TIME, TEMP, PERCP
 
 
 app = Flask(__name__)
 
-try:
-
-    connection = psycopg2.connect(host="ec2-52-71-161-140.compute-1.amazonaws.com",
-                                  dbname="d8a5obfa9du048",
-                                  user="nobeehmaarddfb",
-                                  password="15956bfd9f88359095c6850be56b5e8ed030d15bdb8449a50834f90fe718a70a")
-except (Exception, Error) as error:
-    print("Connecting to PostgreSQL failed!", error)
-
+connection = login_to_db()
 cursor = connection.cursor(cursor_factory=RealDictCursor)
-
-init_db()
-
-@app.route('/')
-def hello_world():
-    cursor.execute("SELECT * FROM forecasts WHERE latitude = -90 AND longitude = -179")
-    result = cursor.fetchall()
-    return result[0]
 
 def get_summary_for_location(lat, lon):
     query = """
@@ -39,6 +23,26 @@ def get_summary_for_location(lat, lon):
     result = cursor.fetchall()
     print(result)
     return result
+
+
+def get_data_for_location(lat, lon):
+    query = """
+    SELECT FOR_TIME, TEMP, PERCP
+    FROM forecasts 
+    WHERE latitude = %s AND longitude = %s
+    """
+
+    params = (lat, lon,)
+    cursor.execute(query, params)
+    result = cursor.fetchall()
+
+
+@app.route('/weather/data')
+def data():
+    lat = float(request.args.get('lat'))
+    lon = float(request.args.get('lon'))
+    return get_data_for_location(lat, lon)[0]
+
 
 @app.route('/weather/summarize')
 def summarize():
