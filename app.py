@@ -31,7 +31,7 @@ def hello_world():
 def summarize():
     lat = request.args.get('lat')
     lon = request.args.get('lon')
-    cursor.execute("SELECT temp_celsius, precipitation_hr FROM forecasts WHERE latitude = %d AND longitude = %d", (lat, lon))
+    cursor.execute("SELECT temp_celsius, precipitation_hr FROM forecasts WHERE latitude = (%lat) AND longitude = (%lon)")
     result = cursor.fetchall()
     return result[0]
 
