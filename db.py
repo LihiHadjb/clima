@@ -52,7 +52,7 @@ def get_summary_for_location(lat, lon):
     cursor = connection.cursor(cursor_factory=RealDictCursor)
 
     query = """
-    SELECT AVG(temperature_celsius)
+    SELECT AVG(temperature_celsius), AVG(precipitation_rate_mm_hr)
     FROM forecasts 
     WHERE latitude = %s AND longitude = %s
     """
