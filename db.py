@@ -1,11 +1,12 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
-
-LON = "Longitude"
-LAT = "Latitude"
-FOR_TIME = "forecast_time"
-TEMP = "Temperature Celsius"
-PERCP = "Precipitation Rate mm/hr"
+import json
+#
+# LON = "Longitude"
+# LAT = "Latitude"
+# FOR_TIME = "forecast_time"
+# TEMP = "Temperature Celsius"
+# PERCP = "Precipitation Rate mm/hr"
 
 
 def login_to_db():
@@ -47,33 +48,55 @@ def load_data():
     connection.commit()
 
 
-def get_summary_for_location(lat, lon):
+def execute_query_for_location(lat, lon, query):
     connection = login_to_db()
     cursor = connection.cursor(cursor_factory=RealDictCursor)
-
-    query = """
-    SELECT AVG(temperature_celsius) AS "temperature_celsius", 
-          AVG(precipitation_rate_mm_hr) AS "precipitation_rate_mm_hr"
-    FROM forecasts 
-    WHERE latitude = %s AND longitude = %s
-    """
-
     params = (lat, lon,)
     cursor.execute(query, params)
     return cursor.fetchall()
 
 
-def get_data_for_location(lat, lon):
-    connection = login_to_db()
-    cursor = connection.cursor(cursor_factory=RealDictCursor)
+def get_summary_for_location(lat, lon):
+    query = """
+    SELECT AVG(temperature_celsius) AS "temperature_celsius_avg", 
+          AVG(precipitation_rate_mm_hr) AS "precipitation_rate_mm_hr_avg",
+          MAX(temperature_celsius) AS "temperature_celsius_max", 
+          MAX(precipitation_rate_mm_hr) AS "precipitation_rate_mm_hr_max",
+          MIN(temperature_celsius) AS "temperature_celsius_min", 
+          MIN(precipitation_rate_mm_hr) AS "precipitation_rate_mm_hr_min"
+          
+    FROM forecasts 
+    WHERE latitude = %s AND longitude = %s
+    """
 
+    name_to_value = json.loads(execute_query_for_location(lat, lon, query)[0])
+
+    max_values ={}
+    max_values['Temperature'] = name_to_value['temperature_celsius_max']
+    max_values['Precipitation'] = name_to_value['precipitation_rate_mm_hr_max']
+
+    min_values ={}
+    min_values['Temperature'] = name_to_value['temperature_celsius_min']
+    min_values['Precipitation'] = name_to_value['precipitation_rate_mm_hr_min']
+
+    avg_values ={}
+    avg_values['Temperature'] = name_to_value['temperature_celsius_avg']
+    avg_values['Precipitation'] = name_to_value['precipitation_rate_mm_hr_avg']
+
+    result = {}
+    result['max'] = max_values
+    result['min'] = min_values
+    result['avg'] = avg_values
+
+    return result
+
+
+def get_data_for_location(lat, lon):
     query = """
     SELECT forecast_time, temperature_celsius, precipitation_rate_mm_hr
     FROM forecasts 
     WHERE latitude = %s AND longitude = %s
     """
 
-    params = (lat, lon,)
-    cursor.execute(query, params)
-    return cursor.fetchall()
+    return execute_query_for_location(lat, lon, query)
 
