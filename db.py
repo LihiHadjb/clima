@@ -75,7 +75,10 @@ def get_summary_for_location(lat, lon):
     """
 
     name_to_value = execute_query_for_location(lat, lon, query, False)
-    return
+    return arrange_by_value_type(name_to_value)
+
+
+def arrange_by_value_type(name_to_value):
     max_values ={}
     max_values['Temperature'] = name_to_value['Temperature_max']
     max_values['Precipitation'] = name_to_value['Precipitation_max']
