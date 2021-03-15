@@ -5,9 +5,9 @@ from dbInit import DBInitializer
 
 app = Flask(__name__)
 
-# init = DBInitializer()
-# init.create_table()
-# init.load_data("data")
+init = DBInitializer()
+init.create_table()
+init.load_data("data")
 
 retriever = Retriever()
 

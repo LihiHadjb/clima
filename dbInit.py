@@ -34,6 +34,7 @@ class DBInitializer():
 
         for file in os.listdir(data_dir):
             file_name = os.path.join(data_dir, file)
+            print(file_name)
             with open(file_name, 'r') as f:
                 next(f)
                 cursor.copy_from(f, 'forecasts',
