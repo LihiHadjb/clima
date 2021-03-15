@@ -43,7 +43,7 @@ def load_data():
         with open(file_name, 'r') as f:
             next(f)
             cursor.copy_from(f, 'forecasts',
-                             columns=('longitude', 'latitude', 'forecastTime', 'Temperature', 'Precipitation'),
+                             columns=('longitude', 'latitude', 'forecastTime','Temperature', 'Precipitation'),
                              sep=',')
     connection.commit()
 
