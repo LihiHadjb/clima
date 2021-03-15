@@ -5,7 +5,6 @@ from flask import jsonify
 app = Flask(__name__)
 retriever = Retriever()
 
-
 @app.route('/weather/data')
 def data():
     lat = float(request.args.get('lat'))
