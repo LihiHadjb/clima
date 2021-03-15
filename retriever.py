@@ -1,11 +1,10 @@
 from psycopg2.extras import RealDictCursor
-from dbInit import DBInitializer
+from login import login
 
 
 class Retriever():
     def __init__(self):
-        self.initializer = DBInitializer()
-        self.connection = self.initializer.login()
+        self.connection = login()
         self.cursor = self.connection.cursor(cursor_factory=RealDictCursor)
 
     def execute_query_for_location(self, lat, lon, query, isResultList):
