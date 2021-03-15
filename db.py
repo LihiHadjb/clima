@@ -53,7 +53,7 @@ def get_summary_for_location(lat, lon):
     cursor = connection.cursor(cursor_factory=RealDictCursor)
 
     query = """
-    SELECT MAX(temperature_celsius), MAX(precipitation_rate_mm_hr), MIN(temperature_celsius), MIN(precipitation_rate_mm_hr), AVG(temperature_celsius), AVG(precipitation_rate_mm_hr)
+    SELECT MAX(temperature_celsius), MIN(temperature_celsius), AVG(temperature_celsius)
     FROM forecasts 
     WHERE latitude = %s AND longitude = %s
     """
