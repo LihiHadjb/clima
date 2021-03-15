@@ -8,7 +8,7 @@ from flask import jsonify
 
 
 app = Flask(__name__)
-
+load_data()
 
 @app.route('/weather/data')
 def data():
