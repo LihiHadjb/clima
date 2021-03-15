@@ -15,7 +15,9 @@ load_data()
 def data():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
-    return jsonify(get_data_for_location(lat, lon))
+    #return jsonify(get_data_for_location(lat, lon))
+    return get_data_for_location(lat, lon)[0]
+
 
 
 @app.route('/weather/summarize')
