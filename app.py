@@ -3,11 +3,12 @@ from psycopg2 import Error
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask import request
-from db import login_to_db, get_data_for_location, get_summary_for_location, load_data
+from db import login_to_db, get_data_for_location, get_summary_for_location, load_data, create_table
 from flask import jsonify
 
 
 app = Flask(__name__)
+create_table()
 load_data()
 
 @app.route('/weather/data')

@@ -19,7 +19,7 @@ def login_to_db():
 def create_table():
     connection = login_to_db()
     cursor = connection.cursor()
-    cursor.execute("""CREATE TABLE forecasts(
+    cursor.execute("""CREATE TABLE IF NOT EXISTS forecasts(
         id SERIAL PRIMARY KEY,
         longitude real,
         latitude real,
