@@ -29,6 +29,7 @@ class DBInitializer():
         connection.commit()
 
     def load_data(self, data_dir):
+        print("loading!!!!")
         connection = self.login()
         cursor = connection.cursor()
 
