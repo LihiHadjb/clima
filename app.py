@@ -7,16 +7,14 @@ from db import login_to_db, get_data_for_location, get_summary_for_location, loa
 from flask import jsonify
 
 
-
 app = Flask(__name__)
+
 
 @app.route('/weather/data')
 def data():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
     return jsonify(get_data_for_location(lat, lon))
-    #return get_data_for_location(lat, lon)
-
 
 
 @app.route('/weather/summarize')

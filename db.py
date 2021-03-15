@@ -49,9 +49,18 @@ def load_data():
 
 
 def get_summary_for_location(lat, lon):
-    data_for_location = get_data_for_location(lat, lon)
-    print(data_for_location)
-    return "hello4"
+    connection = login_to_db()
+    cursor = connection.cursor(cursor_factory=RealDictCursor)
+
+    query = """
+    SELECT MAX(temperature_celsius), MAX(precipitation_rate_mm_hr), MIN(temperature_celsius), MIN(precipitation_rate_mm_hr), AVG(temperature_celsius), AVG(precipitation_rate_mm_hr)
+    FROM forecasts 
+    WHERE latitude = %s AND longitude = %s
+    """
+
+    params = (lat, lon,)
+    cursor.execute(query, params)
+    return cursor.fetchall()
 
 
 def get_data_for_location(lat, lon):
