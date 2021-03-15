@@ -9,7 +9,6 @@ from flask import jsonify
 
 
 app = Flask(__name__)
-create_table()
 
 @app.route('/weather/data')
 def data():
