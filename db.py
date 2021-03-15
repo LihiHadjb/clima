@@ -48,12 +48,16 @@ def load_data():
     connection.commit()
 
 
-def execute_query_for_location(lat, lon, query):
+def execute_query_for_location(lat, lon, query, isResultList):
     connection = login_to_db()
     cursor = connection.cursor(cursor_factory=RealDictCursor)
     params = (lat, lon,)
     cursor.execute(query, params)
-    return cursor.fetchall()
+
+    if(isResultList):
+        return cursor.fetchall()
+    else:
+        return cursor.fetchone()
 
 
 def get_summary_for_location(lat, lon):
@@ -69,8 +73,9 @@ def get_summary_for_location(lat, lon):
     WHERE latitude = %s AND longitude = %s
     """
 
-    name_to_value = json.loads(execute_query_for_location(lat, lon, query)[0])
+    name_to_value = execute_query_for_location(lat, lon, query, False)
 
+    print(name_to_value)
     max_values ={}
     max_values['Temperature'] = name_to_value['temperature_celsius_max']
     max_values['Precipitation'] = name_to_value['precipitation_rate_mm_hr_max']
@@ -98,5 +103,5 @@ def get_data_for_location(lat, lon):
     WHERE latitude = %s AND longitude = %s
     """
 
-    return execute_query_for_location(lat, lon, query)
+    return execute_query_for_location(lat, lon, query, True)
 
