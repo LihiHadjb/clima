@@ -65,7 +65,7 @@ def get_summary_for_location(lat, lon):
     query = """
     SELECT AVG(Temperature) AS "Temperature_avg",
           AVG(Precipitation) AS "Precipitation_avg",
-          MAX(Temperature) AS "temperature_celsius_max",
+          MAX(Temperature) AS "Temperature_max",
           MAX(Precipitation) AS "Precipitation_max",
           MIN(Temperature) AS "Temperature_min",
           MIN(Precipitation) AS "Precipitation_min"
