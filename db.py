@@ -23,9 +23,9 @@ def create_table():
     cursor.execute("""CREATE TABLE IF NOT EXISTS forecasts(
         longitude real,
         latitude real,
-        forecast_time timestamp,
-        temperature_celsius real,
-        precipitation_rate_mm_hr real)
+        forecastTime timestamp,
+        Temperature real,
+        Precipitation real)
     """)
     cursor.close()
     connection.commit()
@@ -43,7 +43,7 @@ def load_data():
         with open(file_name, 'r') as f:
             next(f)
             cursor.copy_from(f, 'forecasts',
-                             columns=('longitude', 'latitude', 'forecast_time', 'temperature_celsius', 'precipitation_rate_mm_hr'),
+                             columns=('longitude', 'latitude', 'forecastTime', 'Temperature', 'Precipitation'),
                              sep=',')
     connection.commit()
 
@@ -60,33 +60,33 @@ def execute_query_for_location(lat, lon, query, isResultList):
         return cursor.fetchone()
 
 
+
 def get_summary_for_location(lat, lon):
     query = """
-    SELECT AVG(temperature_celsius) AS "temperature_celsius_avg", 
-          AVG(precipitation_rate_mm_hr) AS "precipitation_rate_mm_hr_avg",
-          MAX(temperature_celsius) AS "temperature_celsius_max", 
-          MAX(precipitation_rate_mm_hr) AS "precipitation_rate_mm_hr_max",
-          MIN(temperature_celsius) AS "temperature_celsius_min", 
-          MIN(precipitation_rate_mm_hr) AS "precipitation_rate_mm_hr_min"
-          
-    FROM forecasts 
+    SELECT AVG(Temperature) AS "Temperature_avg",
+          AVG(Precipitation) AS "Precipitation_avg",
+          MAX(Temperature) AS "temperature_celsius_max",
+          MAX(Precipitation) AS "Precipitation_max",
+          MIN(Temperature) AS "Temperature_min",
+          MIN(Precipitation) AS "Precipitation_min"
+
+    FROM forecasts
     WHERE latitude = %s AND longitude = %s
     """
 
     name_to_value = execute_query_for_location(lat, lon, query, False)
-
-    print(name_to_value)
+    return
     max_values ={}
-    max_values['Temperature'] = name_to_value['temperature_celsius_max']
-    max_values['Precipitation'] = name_to_value['precipitation_rate_mm_hr_max']
+    max_values['Temperature'] = name_to_value['Temperature_max']
+    max_values['Precipitation'] = name_to_value['Precipitation_max']
 
     min_values ={}
-    min_values['Temperature'] = name_to_value['temperature_celsius_min']
-    min_values['Precipitation'] = name_to_value['precipitation_rate_mm_hr_min']
+    min_values['Temperature'] = name_to_value['Temperature_min']
+    min_values['Precipitation'] = name_to_value['Precipitation_min']
 
     avg_values ={}
-    avg_values['Temperature'] = name_to_value['temperature_celsius_avg']
-    avg_values['Precipitation'] = name_to_value['precipitation_rate_mm_hr_avg']
+    avg_values['Temperature'] = name_to_value['Temperature_avg']
+    avg_values['Precipitation'] = name_to_value['Precipitation_avg']
 
     result = {}
     result['max'] = max_values
@@ -98,7 +98,7 @@ def get_summary_for_location(lat, lon):
 
 def get_data_for_location(lat, lon):
     query = """
-    SELECT forecast_time, temperature_celsius, precipitation_rate_mm_hr
+    SELECT forecastTime, Temperature, Precipitation
     FROM forecasts 
     WHERE latitude = %s AND longitude = %s
     """
