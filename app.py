@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 init = DBInitializer()
 init.create_table()
-init.load_data()
+init.load_data("data")
 
 retriver = Retriever()
 

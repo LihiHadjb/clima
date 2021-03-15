@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 HOST="ec2-54-164-241-193.compute-1.amazonaws.com"
 DBNAME="d95c61aiaqslf"
@@ -27,15 +28,12 @@ class DBInitializer():
         cursor.close()
         connection.commit()
 
-    def load_data(self):
+    def load_data(self, data_dir):
         connection = self.login()
         cursor = connection.cursor()
 
-        # directory = "data"
-        # for file in os.listdir(directory):
-        #     file_name = os.fsdecode(file)
-        # for file_name in ["file1.csv", "file2.csv", "file3.csv"]:
-        for file_name in ["file1.csv"]:
+        for file in os.listdir(data_dir):
+            file_name = os.path.join(data_dir, file)
             with open(file_name, 'r') as f:
                 next(f)
                 cursor.copy_from(f, 'forecasts',
