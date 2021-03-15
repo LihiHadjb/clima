@@ -9,14 +9,13 @@ from flask import jsonify
 
 
 app = Flask(__name__)
-load_data()
 
 @app.route('/weather/data')
 def data():
     lat = float(request.args.get('lat'))
     lon = float(request.args.get('lon'))
     #return jsonify(get_data_for_location(lat, lon))
-    return get_data_for_location(lat, lon)[0]
+    return get_data_for_location(lat, lon)
 
 
 
