@@ -1,14 +1,8 @@
 from flask import Flask, request
 from retriever import Retriever
 from flask import jsonify
-from dbInit import DBInitializer
 
 app = Flask(__name__)
-
-init = DBInitializer()
-init.create_table()
-init.load_data("data")
-
 retriever = Retriever()
 
 

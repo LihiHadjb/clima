@@ -43,3 +43,7 @@ class DBInitializer():
                                  sep=',')
         cursor.close()
         connection.commit()
+
+init = DBInitializer()
+init.create_table()
+init.load_data("data")
