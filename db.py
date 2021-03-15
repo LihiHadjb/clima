@@ -55,7 +55,7 @@ def get_summary_for_location(lat, lon):
 
 def get_data_for_location(lat, lon):
     connection = login_to_db()
-    cursor = connection.cursor()
+    cursor = connection.cursor(cursor_factory=RealDictCursor)
 
     query = """
     SELECT forecast_time, temperature_celsius, precipitation_rate_mm_hr
